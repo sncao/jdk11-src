@@ -1006,6 +1006,12 @@ public final class String
         if (anObject instanceof String) {
             String aString = (String)anObject;
             if (coder() == aString.coder()) {
+				/*
+				 * Latin1是ISO-8859-1的别名，有些环境下写作Latin-1。
+				 * ISO-8859-1编码是单字节编码，向下兼容ASCII，
+				 * 其编码范围是0x00-0xFF，0x00-0x7F之间完全和ASCII一致，
+				 * 0x80-0x9F之间是控制字符，0xA0-0xFF之间是文字符号。
+				 */
                 return isLatin1() ? StringLatin1.equals(value, aString.value)
                                   : StringUTF16.equals(value, aString.value);
             }
